@@ -28,9 +28,32 @@ namespace DiceRoller2UI
 
         private void RollButton_Click(object sender, RoutedEventArgs e)
         {
-            var diceTray = new DiceTray(diceSelector.Text, diceCount.Text, modifier.Text);
-            var message = new RollMessage(diceTray).RollResult;
-            MessageBox.Show(message);
+            VantageType vantageType = GetVantage();
+            var diceTray = new DiceTray(diceSelector.Text, diceCount.Text, modifier.Text, vantageType);
+            var rollMessage = new RollMessage();
+            string message = rollMessage.ComposeMessage(diceTray);
+            string caption = rollMessage.ComposeCaption(diceTray);
+            MessageBox.Show(this, message, caption);
+        }
+
+        private VantageType GetVantage()
+        {
+            if (Normal.IsChecked == true)
+            {
+                return VantageType.NoVantage;
+            }
+            else if (Advantage.IsChecked == true)
+            {
+                return VantageType.Advantage;
+            }
+            else if (Disadvantage.IsChecked == true)
+            {
+                return VantageType.Disadvantage;
+            }
+            else
+            {
+                throw new NullReferenceException();
+            }
         }
     }
 }

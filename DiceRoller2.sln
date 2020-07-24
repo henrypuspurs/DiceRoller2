@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DiceRoller2UI", "DiceRoller
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DiceRoller.Library", "DiceRoller.Library\DiceRoller.Library.csproj", "{CA66F3B4-3B6E-4BBD-8F11-9D45FF20130F}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DiceRoller.Tests", "DiceRoller.Tests\DiceRoller.Tests.csproj", "{C692363B-ED60-4397-8082-F763186A4444}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +23,10 @@ Global
 		{CA66F3B4-3B6E-4BBD-8F11-9D45FF20130F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{CA66F3B4-3B6E-4BBD-8F11-9D45FF20130F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{CA66F3B4-3B6E-4BBD-8F11-9D45FF20130F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C692363B-ED60-4397-8082-F763186A4444}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C692363B-ED60-4397-8082-F763186A4444}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C692363B-ED60-4397-8082-F763186A4444}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C692363B-ED60-4397-8082-F763186A4444}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using System.Text.RegularExpressions;
 
 namespace DiceRoller.Library
@@ -10,13 +11,17 @@ namespace DiceRoller.Library
         public VantageType VantageType { get; private set; } = VantageType.NoVantage;
         public int Bonus { get; private set; }
         public int[] Rolls { get; private set; }
+        public Crit Crit { get; private set; } = Crit.False;
 
-        public DiceTray(string diceType, string diceCount, string bonus)
+        public DiceTray(string diceType, string diceCount, string bonus, VantageType vantageType)
         {
             Bonus = int.Parse(bonus);
             DiceCount = int.Parse(diceCount);
             DiceType = int.Parse(Regex.Replace(diceType, @"d", ""));
+            VantageType = vantageType;
+            CheckVantageType();
             RollDice();
+            Crit = CheckIfCrit();
         }
 
         private void RollDice()
@@ -28,6 +33,30 @@ namespace DiceRoller.Library
                 Rolls[i] = r.Next(1, DiceType + 1);
             }
         }
+
+        private void CheckVantageType()
+        {
+            if (VantageType != VantageType.NoVantage && DiceCount >= 1)
+            {
+                DiceCount = 2;
+            }
+        }
+        
+        private Crit CheckIfCrit()
+        {
+            if (Rolls.Max() == 20 && DiceType == 20 && VantageType != VantageType.Disadvantage)
+            {
+                return Crit.CriticalSuccess;
+            }
+            else if (Rolls.Min() == 1 && DiceType == 20 && VantageType != VantageType.Advantage)
+            {
+                return Crit.CriticalFail;
+            }
+            else
+            {
+                return Crit.False;
+            }
+        }
     }
 
     public enum VantageType
@@ -35,5 +64,12 @@ namespace DiceRoller.Library
         NoVantage,
         Advantage,
         Disadvantage
+    }
+
+    public enum Crit
+    {
+        False,
+        CriticalSuccess,
+        CriticalFail
     }
 }
