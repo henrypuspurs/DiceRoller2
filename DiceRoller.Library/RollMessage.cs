@@ -12,7 +12,7 @@ namespace DiceRoller.Library
         public RollMessage(DiceTray diceTray)
         {
             RollResult = $"You rolled {diceTray.DiceCount}d{diceTray.DiceType}+{diceTray.Bonus}\n" +
-                $"Result: {diceTray.Rolls.Sum()}";
+                $"Result: {diceTray.Rolls.Sum() + diceTray.Bonus}";
         }
     }
 }
