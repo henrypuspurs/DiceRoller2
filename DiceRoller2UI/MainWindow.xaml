@@ -1,0 +1,60 @@
+﻿<Window x:Class="DiceRoller2UI.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:DiceRoller2UI"
+        mc:Ignorable="d" FontSize="14" ResizeMode="NoResize"
+        Title="Dice Roller" Height="275" Width="220">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="10"/>
+            <ColumnDefinition Width="110"/>
+            <ColumnDefinition Width="75"/>
+            <ColumnDefinition Width="10"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="10"/>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="10"/>
+        </Grid.RowDefinitions>
+
+        <TextBlock Grid.Column="1" Grid.Row="1" Text="Select your dice." FontSize="18"
+               Grid.ColumnSpan="2" FontWeight="SemiBold" Margin="0,0,0,10"/>
+
+        <Label Grid.Column="1" Grid.Row="2" Content="Dice Type" />
+
+        <ComboBox x:Name="diceSelector" Grid.Column="2" Grid.Row="2" Margin="5">
+            <ComboBoxItem Content="d100"/>
+            <ComboBoxItem IsSelected ="True" Content="d20" />
+            <ComboBoxItem Content="d12"/>
+            <ComboBoxItem Content="d10"/>
+            <ComboBoxItem Content="d8"/>
+            <ComboBoxItem Content="d6"/>
+            <ComboBoxItem Content="d4"/>
+        </ComboBox>
+
+        <Label Grid.Column="1" Grid.Row="3" Content="Number of Dice" />
+
+        <TextBox x:Name="diceCount" Grid.Column="2" Grid.Row="3" Margin="5" Text="1" MaxLength="2"/>
+
+        <StackPanel x:Name="vantageType" Grid.Column="1" Grid.Row="4" Grid.ColumnSpan="2" Width="auto" Margin="5">
+            <RadioButton Content="Normal Roll" IsChecked="True"/>
+            <RadioButton Content="Advantage"/>
+            <RadioButton Content="Disadvantage"/>
+        </StackPanel>
+
+        <Label Grid.Column="1" Grid.Row="5" Content="Modifier"/>
+
+        <TextBox x:Name="modifier" Grid.Column="2" Grid.Row="5" Text="0" Margin="5"/>
+
+        <Button Grid.Column="1" Grid.Row="6" Margin="5" Width="150" HorizontalAlignment="Center"
+            x:Name="rollButton" Content="Roll" Grid.ColumnSpan="2" Click="RollButton_Click"/>
+
+    </Grid>
+</Window>
