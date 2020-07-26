@@ -1,0 +1,39 @@
+﻿@model DiceRollModel
+@{
+    ViewData["Title"] = "Rolling happens here";
+}
+@using DiceRoller.Library;
+
+<div>
+    <form method="post">
+        <div class="form-group">
+            <h4>Choose your dice.</h4>
+            <div>
+                <label>
+                    Dice Type
+                    <select id="diceType" asp-for="DiceType">
+                        <option value="100">d100</option>
+                        <option value="20" selected="selected">d20</option>
+                        <option value="12">d12</option>
+                        <option value="10">d10</option>
+                        <option value="8">d8</option>
+                        <option value="6">d6</option>
+                        <option value="4">d4</option>
+                    </select>
+                </label>
+            </div>
+            <div>
+                <label>Number of Dice<input asp-for="DiceCount" type="number" value="1" max="20" /></label>
+                <div>
+                    <input asp-for="VantageType" id="VantageType" data-val="true" name="VantageType" type="radio" value="NoVantage" checked="checked"/><label>Normal Roll</label><br/>
+                    <input asp-for="VantageType" id="VantageType" data-val="true" name="VantageType" type="radio" value="Advantage" /><label>Advantage</label><br />
+                    <input asp-for="VantageType" id="VantageType" data-val="true" name="VantageType" type="radio" value="Disadvantage" /><label>Disadvantage</label>
+                </div>
+                <div>
+                    <input type="button" class="btn btn-outline-secondary" value="Add Bonus Dice" />
+                    <input type="submit" class="btn btn-primary" value="Roll!"/>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>

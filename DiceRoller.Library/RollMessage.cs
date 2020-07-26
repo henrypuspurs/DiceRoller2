@@ -48,11 +48,11 @@ namespace DiceRoller.Library
             }
             else if (diceTray.Crit == Crit.CriticalSuccess)
             {
-                return "CRITICAL HIT";
+                return "Natural 20!";
             }
             else if (diceTray.Crit == Crit.CriticalFail)
             {
-                return "CRITICAL FAIL";
+                return "Natural 1!";
             }
             else
             {
