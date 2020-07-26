@@ -1,18 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using DiceRoller.Library;
+using System;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
-using DiceRoller.Library;
 
 namespace DiceRoller2UI
 {
@@ -30,10 +18,11 @@ namespace DiceRoller2UI
         {
             VantageType vantageType = GetVantage();
             var diceTray = new DiceTray(diceSelector.Text, diceCount.Text, modifier.Text, vantageType);
-            var rollMessage = new RollMessage();
-            string message = rollMessage.ComposeMessage(diceTray);
-            string caption = rollMessage.ComposeCaption(diceTray);
-            MessageBox.Show(this, message, caption);
+            var rollMessage = new RollMessage(diceTray);
+            string message = $"You Rolled {rollMessage.RollMade}\n" +
+                $"Your rolls were {rollMessage.Rolls}\n" +
+                $"Result = {rollMessage.Result}";
+            MessageBox.Show(this, message, rollMessage.CritMessage);
         }
 
         private VantageType GetVantage()

@@ -7,25 +7,32 @@ namespace DiceRoller.Library
 {
     public class RollMessage
     {
-        public string ComposeMessage(DiceTray diceTray)
+        public string RollMade { get; private set; }
+        public string Rolls { get; private set; }
+        public string Result { get; private set; }
+        public string CritMessage { get; private set; }
+
+        public RollMessage(DiceTray diceTray)
+        {
+            RollMade = $"{diceTray.DiceCount}d{diceTray.DiceType} +{diceTray.Bonus}";
+            Rolls = $"{string.Join(", ", diceTray.Rolls)}";
+            Result = CalculateResult(diceTray);
+            CritMessage = CritAsString(diceTray);
+        }
+
+        private string CalculateResult(DiceTray diceTray)
         {
             if (diceTray.VantageType == VantageType.NoVantage)
             {
-                return $"You rolled {diceTray.DiceCount}d{diceTray.DiceType} +{diceTray.Bonus}\n\n" +
-                    $"{string.Join(", ", diceTray.Rolls)}\n" +
-                    $"Result: {diceTray.Rolls.Sum() + diceTray.Bonus}";
+                    return $"{diceTray.Rolls.Sum() + diceTray.Bonus}";
             }
             else if (diceTray.VantageType == VantageType.Advantage)
             {
-                return $"You rolled {diceTray.DiceCount}d{diceTray.DiceType} +{diceTray.Bonus}\n" +
-                    $"{string.Join(", ", diceTray.Rolls)}\n" +
-                    $"Result: {diceTray.Rolls.Max() + diceTray.Bonus}";
+                return $"{diceTray.Rolls.Max() + diceTray.Bonus}";
             }
             else if (diceTray.VantageType == VantageType.Disadvantage)
             {
-                return $"You rolled {diceTray.DiceCount}d{diceTray.DiceType} +{diceTray.Bonus}\n" +
-                    $"{string.Join(", ", diceTray.Rolls)}\n" +
-                    $"Result: {diceTray.Rolls.Min() + diceTray.Bonus}";
+                return $"{diceTray.Rolls.Min() + diceTray.Bonus}";
             }
             else
             {
@@ -33,7 +40,7 @@ namespace DiceRoller.Library
             }
         }
 
-        public string ComposeCaption(DiceTray diceTray)
+        public string CritAsString(DiceTray diceTray)
         {
             if (diceTray.Crit == Crit.False)
             {
