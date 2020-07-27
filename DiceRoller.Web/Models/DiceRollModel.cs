@@ -18,11 +18,6 @@ namespace DiceRoller.Web.Models
         public VantageType VantageType { get; set; }
         [BindProperty, Required]
         public string Bonus { get; set; }
-
-        public RollMessage RollDice()
-        {
-            var diceTray = new DiceTray(DiceType, DiceCount, Bonus, VantageType);
-            return new RollMessage(diceTray);
-        }
+        public RollMessage RollResult { get; set; }
     }
 }

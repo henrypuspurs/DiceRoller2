@@ -1,4 +1,5 @@
-﻿using DiceRoller.Web.Models;
+﻿using DiceRoller.Library;
+using DiceRoller.Web.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using System.Diagnostics;
@@ -21,6 +22,15 @@ namespace DiceRoller.Web.Controllers
 
         public IActionResult About()
         {
+            return View();
+        }
+
+        [HttpPost]
+        public IActionResult Index(DiceRollModel diceRoll)
+        {
+            var dicetray = new DiceTray(diceRoll.DiceType, diceRoll.DiceCount, diceRoll.Bonus, diceRoll.VantageType);
+            diceRoll.RollResult = new RollMessage(dicetray);
+            ViewData["RollResults"] = diceRoll.RollResult;
             return View();
         }
 

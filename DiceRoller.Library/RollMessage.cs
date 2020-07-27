@@ -11,6 +11,7 @@ namespace DiceRoller.Library
         public string Rolls { get; private set; }
         public string Result { get; private set; }
         public string CritMessage { get; private set; }
+        public Crit CritValue { get; private set; }
 
         public RollMessage(DiceTray diceTray)
         {
@@ -18,6 +19,7 @@ namespace DiceRoller.Library
             Rolls = $"{string.Join(", ", diceTray.Rolls)}";
             Result = CalculateResult(diceTray);
             CritMessage = CritAsString(diceTray);
+            CritValue = diceTray.Crit;
         }
 
         private string CalculateResult(DiceTray diceTray)
