@@ -13,11 +13,12 @@ namespace DiceRoller.Library
         public int[] Rolls { get; private set; }
         public Crit Crit { get; private set; } = Crit.False;
 
-        public DiceTray(string diceType, string diceCount, string bonus, VantageType vantageType)
+        public DiceTray(string diceType, string diceCount, string bonus, VantageType vantageType = VantageType.NoVantage)
         {
-            Bonus = int.Parse(bonus);
-            DiceCount = int.Parse(diceCount);
-            DiceType = int.Parse(Regex.Replace(diceType, @"d", ""));
+            var stringToInt = new StringToInt();
+            Bonus = stringToInt.ZeroOrGreater(bonus);
+            DiceCount = stringToInt.OneOrGreater(diceCount);
+            DiceType = stringToInt.OneOrGreater(diceType);
             VantageType = vantageType;
             CheckVantageType();
             RollDice();
@@ -28,7 +29,7 @@ namespace DiceRoller.Library
         {
             Rolls = new int[DiceCount];
             var r = new Random();
-            for (int i=0; i < DiceCount; i++)
+            for (int i = 0; i < DiceCount; i++)
             {
                 Rolls[i] = r.Next(1, DiceType + 1);
             }
@@ -41,7 +42,7 @@ namespace DiceRoller.Library
                 DiceCount = 2;
             }
         }
-        
+
         private Crit CheckIfCrit()
         {
             if (Rolls.Max() == 20 && DiceType == 20 && VantageType != VantageType.Disadvantage)

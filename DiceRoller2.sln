@@ -3,13 +3,13 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.30011.22
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DiceRoller.WPF", "DiceRoller2UI\DiceRoller.WPF.csproj", "{0C4DAD93-FD4E-4208-9002-E4A4126B4708}"
-EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DiceRoller.Library", "DiceRoller.Library\DiceRoller.Library.csproj", "{CA66F3B4-3B6E-4BBD-8F11-9D45FF20130F}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DiceRoller.Tests", "DiceRoller.Tests\DiceRoller.Tests.csproj", "{C692363B-ED60-4397-8082-F763186A4444}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DiceRoller.Web", "DiceRoller.Web\DiceRoller.Web.csproj", "{F84E6E7C-ED04-4549-81E0-7758D14788F2}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DiceRoller.Web", "DiceRoller.Web\DiceRoller.Web.csproj", "{F84E6E7C-ED04-4549-81E0-7758D14788F2}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DiceRoller.WPF", "DiceRoller.WPF\DiceRoller.WPF.csproj", "{686C37A2-F3EB-4CB2-B8CB-AF5A6701ADCA}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -17,10 +17,6 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{0C4DAD93-FD4E-4208-9002-E4A4126B4708}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{0C4DAD93-FD4E-4208-9002-E4A4126B4708}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{0C4DAD93-FD4E-4208-9002-E4A4126B4708}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{0C4DAD93-FD4E-4208-9002-E4A4126B4708}.Release|Any CPU.Build.0 = Release|Any CPU
 		{CA66F3B4-3B6E-4BBD-8F11-9D45FF20130F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{CA66F3B4-3B6E-4BBD-8F11-9D45FF20130F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{CA66F3B4-3B6E-4BBD-8F11-9D45FF20130F}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -33,6 +29,10 @@ Global
 		{F84E6E7C-ED04-4549-81E0-7758D14788F2}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F84E6E7C-ED04-4549-81E0-7758D14788F2}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F84E6E7C-ED04-4549-81E0-7758D14788F2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{686C37A2-F3EB-4CB2-B8CB-AF5A6701ADCA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{686C37A2-F3EB-4CB2-B8CB-AF5A6701ADCA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{686C37A2-F3EB-4CB2-B8CB-AF5A6701ADCA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{686C37A2-F3EB-4CB2-B8CB-AF5A6701ADCA}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -27,11 +27,7 @@ namespace DiceRoller2UI
 
         private VantageType GetVantage()
         {
-            if (Normal.IsChecked == true)
-            {
-                return VantageType.NoVantage;
-            }
-            else if (Advantage.IsChecked == true)
+            if (Advantage.IsChecked == true)
             {
                 return VantageType.Advantage;
             }
@@ -41,7 +37,7 @@ namespace DiceRoller2UI
             }
             else
             {
-                throw new NullReferenceException();
+                return (VantageType.NoVantage);
             }
         }
     }

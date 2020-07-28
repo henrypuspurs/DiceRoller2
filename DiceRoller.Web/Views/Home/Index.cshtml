@@ -3,81 +3,82 @@
 @{
     ViewData["Title"] = "Rolling happens here";
 }
+@section scripts{
+    <partial name="_ValidationScriptsPartial" />
+}
 
-    <div class="container d-flex align-content-xl-around flex-wrap">
-        <div class="row">
-            <div class="col-md-auto">
-                @using (Html.BeginForm("Index", "Home", FormMethod.Post))
-                {
-                    <form>
-                        <div class="form-group">
-                            <h4>Choose your dice.</h4>
-                            <div class="dropdown row">
-                                <label for="diceType">Dice Type</label>
-                                <select asp-for="DiceType" id="diceType" class="custom-select">
-                                    <option value="100">d100</option>
-                                    <option value="20" selected="selected">d20</option>
-                                    <option value="12">d12</option>
-                                    <option value="10">d10</option>
-                                    <option value="8">d8</option>
-                                    <option value="6">d6</option>
-                                    <option value="4">d4</option>
-                                </select>
+<div class="container d-flex align-content-xl-around flex-wrap">
+    <div class="row">
+        <div class="col-md-auto">
+            @using (Html.BeginForm("Index", "Home", FormMethod.Post))
+            {
+                <form>
+                    <div class="form-group">
+                        <h4>Choose your dice.</h4>
+                        <div class="dropdown row">
+                            <label for="diceType">Dice Type</label>
+                            <select asp-for="DiceType" id="diceType" class="custom-select">
+                                <option value="100">d100</option>
+                                <option value="20" selected="selected">d20</option>
+                                <option value="12">d12</option>
+                                <option value="10">d10</option>
+                                <option value="8">d8</option>
+                                <option value="6">d6</option>
+                                <option value="4">d4</option>
+                            </select>
+                        </div>
+                        <div class="row">
+                            <label for="diceCount">Number of Dice</label>
+                            @Html.TextBox("diceCount", Model.DiceCount, new { @class = "form-control valid", @data_val = "true", @data_val_required = "Number of dice must be 1 or greater." })
+                        </div>
+                        <div>
+                            <div class="custom-control custom-radio row">
+                                <input class="custom-control-input" asp-for="VantageType" id="NoVantage" data-val="true" name="VantageType" type="radio" value="NoVantage" checked="checked" />
+                                <label for="NoVantage" class="custom-control-label">Normal Roll</label>
                             </div>
-                            <div class="row">
-                                <label for="diceCount">Number of Dice</label>
-                                <input asp-for="DiceCount" type="text" value="1" id="diceCount" class="form-control" />
+                            <div class="custom-control custom-radio row">
+                                <input class="custom-control-input" asp-for="VantageType" id="Advantage" data-val="true" name="VantageType" type="radio" value="Advantage" />
+                                <label for="Advantage" class="custom-control-label">Advantage</label>
                             </div>
-                            <div>
-                                <div class="custom-control custom-radio row">
-                                    <input class="custom-control-input" asp-for="VantageType" id="NoVantage" data-val="true" name="VantageType" type="radio" value="NoVantage" checked="checked" />
-                                    <label for="NoVantage" class="custom-control-label">Normal Roll</label>
-                                </div>
-                                <div class="custom-control custom-radio row">
-                                    <input class="custom-control-input" asp-for="VantageType" id="Advantage" data-val="true" name="VantageType" type="radio" value="Advantage" />
-                                    <label for="Advantage" class="custom-control-label">Advantage</label>
-                                </div>
-                                <div class="custom-control custom-radio row">
-                                    <input class="custom-control-input" asp-for="VantageType" id="Disadvantage" data-val="true" name="VantageType" type="radio" value="Disadvantage" />
-                                    <label for="Disadvantage" class="custom-control-label">Disadvantage</label>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <label for="bonus">Bonus/ Modifier</label>
-                                <input asp-for="Bonus" type="text" value="0" id="bonus" class="form-control" />
-                            </div>
-                            <div class="row align-baseline">
-                                <button type="submit" class="btn btn-primary">Roll!</button>
+                            <div class="custom-control custom-radio row">
+                                <input class="custom-control-input" asp-for="VantageType" id="Disadvantage" data-val="true" name="VantageType" type="radio" value="Disadvantage" />
+                                <label for="Disadvantage" class="custom-control-label">Disadvantage</label>
                             </div>
                         </div>
-                    </form>
-                }
-            </div>
-            <div class="col"></div>
-
-
-            @{
-                var rollMessage = ViewData["RollResults"] as RollMessage;
-            }
-
-            @if (ViewData["RollResults"] as RollMessage != null)
-            {
-                <div class="col-md-auto align-self-center alert alert-primary">
-                    @if ((ViewData["RollResults"] as RollMessage).CritValue != Crit.False)
-                    {
-                        @if ((ViewData["RollResults"] as RollMessage).CritValue != Crit.CriticalFail)
-                        {
-                            <div class="row alert alert-success text-justify">@rollMessage.CritMessage</div>
-                        }
-                        else
-                        {
-                            <div class="row alert alert-danger text-justify">@rollMessage.CritMessage</div>
-                        }
-                    }
-                    <div class="row text-justify">@rollMessage.RollMade</div>
-                    <div class="row text-justify">The rolls were: @rollMessage.Rolls</div>
-                    <div class="row text-justify">Total: @rollMessage.Result</div>
-                </div>
+                        <div class="row">
+                            <label for="bonus">Bonus/ Modifier</label>
+                            @Html.TextBox("bonus", Model.Bonus, new { @class = "form-control valid", @data_val = "true", @data_val_required = "For no bonus or modifier enter 0" })
+                        </div>
+                        <div class="row align-baseline">
+                            <button type="submit" class="btn btn-primary">Roll!</button>
+                        </div>
+                        <div>
+                            @Html.ValidationSummary()
+                        </div>
+                    </div>
+                </form>
             }
         </div>
+        <div class="col"></div>
+
+        @if (Model.RollResult != null)
+        {
+            <div class="col-md-auto align-self-center alert alert-primary">
+                @if (Model.RollResult.CritValue != Crit.False)
+                {
+                    @if (Model.RollResult.CritValue != Crit.CriticalFail)
+                    {
+                        <div class="row alert alert-success text-justify">@Model.RollResult.CritMessage</div>
+                    }
+                    else
+                    {
+                        <div class="row alert alert-danger text-justify">@Model.RollResult.CritMessage</div>
+                    }
+                }
+                <div class="row text-justify">@Model.RollResult.RollMade</div>
+                <div class="row text-justify">The rolls were: @Model.RollResult.Rolls</div>
+                <div class="row text-justify">Total: @Model.RollResult.Result</div>
+            </div>
+        }
     </div>
+</div>

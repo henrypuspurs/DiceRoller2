@@ -17,7 +17,7 @@ namespace DiceRoller.Web.Controllers
 
         public IActionResult Index()
         {
-            return View();
+            return View(new DiceRollModel());
         }
 
         public IActionResult About()
@@ -30,8 +30,7 @@ namespace DiceRoller.Web.Controllers
         {
             var dicetray = new DiceTray(diceRoll.DiceType, diceRoll.DiceCount, diceRoll.Bonus, diceRoll.VantageType);
             diceRoll.RollResult = new RollMessage(dicetray);
-            ViewData["RollResults"] = diceRoll.RollResult;
-            return View();
+            return View(diceRoll);
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
