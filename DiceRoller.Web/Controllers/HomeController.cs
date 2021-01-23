@@ -9,10 +9,14 @@ namespace DiceRoller.Web.Controllers
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
+        private readonly IDiceTray _diceTray;
+        private readonly IRollMessage _rollMessage;
 
-        public HomeController(ILogger<HomeController> logger)
+        public HomeController(ILogger<HomeController> logger, IDiceTray diceTray, IRollMessage rollMessage)
         {
             _logger = logger;
+            _diceTray = diceTray;
+            _rollMessage = rollMessage;
         }
 
         public IActionResult Index()
@@ -28,8 +32,9 @@ namespace DiceRoller.Web.Controllers
         [HttpPost]
         public IActionResult Index(DiceRollModel diceRoll)
         {
-            var dicetray = new DiceTray(diceRoll.DiceType, diceRoll.DiceCount, diceRoll.Bonus, diceRoll.VantageType);
-            diceRoll.RollResult = new RollMessage(dicetray);
+            _diceTray.DiceRoll(diceRoll.DiceType, diceRoll.DiceCount, diceRoll.Bonus, diceRoll.VantageType);
+            _rollMessage.RollMessages(_diceTray);
+            diceRoll.RollResult = _rollMessage;
             return View(diceRoll);
         }
 

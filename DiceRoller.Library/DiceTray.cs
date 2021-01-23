@@ -4,7 +4,7 @@ using System.Text.RegularExpressions;
 
 namespace DiceRoller.Library
 {
-    public class DiceTray
+    public class DiceTray : IDiceTray
     {
         public int DiceType { get; private set; }
         public int DiceCount { get; private set; }
@@ -13,7 +13,7 @@ namespace DiceRoller.Library
         public int[] Rolls { get; private set; }
         public Crit Crit { get; private set; } = Crit.False;
 
-        public DiceTray(string diceType, string diceCount, string bonus, VantageType vantageType = VantageType.NoVantage)
+        public void DiceRoll(string diceType, string diceCount, string bonus, VantageType vantageType = VantageType.NoVantage)
         {
             var stringToInt = new StringToInt();
             Bonus = stringToInt.ZeroOrGreater(bonus);

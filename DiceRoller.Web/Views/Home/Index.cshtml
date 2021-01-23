@@ -7,9 +7,9 @@
     <partial name="_ValidationScriptsPartial" />
 }
 
-<div class="container d-flex align-content-xl-around flex-wrap">
+<div class="container">
     <div class="row">
-        <div class="col-md-auto">
+        <div class="col-md-3 m-1">
             @using (Html.BeginForm("Index", "Home", FormMethod.Post))
             {
                 <form>
@@ -17,7 +17,7 @@
                         <h4>Choose your dice.</h4>
                         <div class="dropdown row">
                             <label for="diceType">Dice Type</label>
-                            <select asp-for="DiceType" id="diceType" class="custom-select">
+                            <select asp-for="DiceType" id="diceType" class="custom-select" onchange="hideDiv(this);">
                                 <option value="100">d100</option>
                                 <option value="20" selected="selected">d20</option>
                                 <option value="12">d12</option>
@@ -31,7 +31,11 @@
                             <label for="diceCount">Number of Dice</label>
                             @Html.TextBox("diceCount", Model.DiceCount, new { @class = "form-control valid", @data_val = "true", @data_val_required = "Number of dice must be 1 or greater." })
                         </div>
-                        <div>
+                        <div class="row">
+                            <label for="bonus">Bonus/ Modifier</label>
+                            @Html.TextBox("bonus", Model.Bonus, new { @class = "form-control valid", @data_val = "true", @data_val_required = "For no bonus or modifier enter 0" })
+                        </div>
+                        <div class="d-block" id="Vantage">
                             <div class="custom-control custom-radio row">
                                 <input class="custom-control-input" asp-for="VantageType" id="NoVantage" data-val="true" name="VantageType" type="radio" value="NoVantage" checked="checked" />
                                 <label for="NoVantage" class="custom-control-label">Normal Roll</label>
@@ -46,39 +50,69 @@
                             </div>
                         </div>
                         <div class="row">
-                            <label for="bonus">Bonus/ Modifier</label>
-                            @Html.TextBox("bonus", Model.Bonus, new { @class = "form-control valid", @data_val = "true", @data_val_required = "For no bonus or modifier enter 0" })
-                        </div>
-                        <div class="row align-baseline">
                             <button type="submit" class="btn btn-primary">Roll!</button>
                         </div>
-                        <div>
+                        <div class="text-danger">
                             @Html.ValidationSummary()
                         </div>
                     </div>
                 </form>
             }
         </div>
-        <div class="col"></div>
 
         @if (Model.RollResult != null)
         {
-            <div class="col-md-auto align-self-center alert alert-primary">
+            <div class="col-md-3 alert alert-primary m-1">
                 @if (Model.RollResult.CritValue != Crit.False)
                 {
                     @if (Model.RollResult.CritValue != Crit.CriticalFail)
                     {
-                        <div class="row alert alert-success text-justify">@Model.RollResult.CritMessage</div>
+                        <div class="row alert alert-success">@Model.RollResult.CritMessage</div>
                     }
                     else
                     {
-                        <div class="row alert alert-danger text-justify">@Model.RollResult.CritMessage</div>
+                        <div class="row alert alert-danger">@Model.RollResult.CritMessage</div>
                     }
                 }
-                <div class="row text-justify">@Model.RollResult.RollMade</div>
-                <div class="row text-justify">The rolls were: @Model.RollResult.Rolls</div>
-                <div class="row text-justify">Total: @Model.RollResult.Result</div>
+                <div class="row">@Model.RollResult.RollMade</div>
+                <div class="row">The rolls were: @Model.RollResult.Rolls</div>
+                <div class="row">Total: @Model.RollResult.Result</div>
             </div>
+        }
+        <!--next thing to get working-->
+        @if (Model.RollResult != null && Model.RollHistory.Count >= 1)
+        {
+            for (int i = 0; i >= 3; i++)
+            {
+                var thisEntry = Model.RollHistory[i];
+            <div class="col-md-3 alert alert-primary m-1">
+                @if (thisEntry.CritValue != Crit.False)
+                {
+                    @if (thisEntry.CritValue != Crit.CriticalFail)
+                    {
+                        <div class="row alert alert-success">@thisEntry.CritMessage</div>
+                    }
+                    else
+                    {
+                        <div class="row alert alert-danger">@thisEntry.CritMessage</div>
+                    }
+                }
+                <div class="row">@thisEntry.RollMade</div>
+                <div class="row">The rolls were: @thisEntry.Rolls</div>
+                <div class="row">Total: @thisEntry.Result</div>
+            </div>
+            }
         }
     </div>
 </div>
+
+<script>
+    function hideDiv(diceType) {
+        var chosen = diceType.options[diceType.selectedIndex].value;
+        if (chosen == "20") {
+            document.getElementById("Vantage").classList.value = "d-block";
+        } else {
+            document.getElementById("Vantage").classList.value = "d-none";
+        }
+    }
+</script>

@@ -5,7 +5,7 @@ using System.Text;
 
 namespace DiceRoller.Library
 {
-    public class RollMessage
+    public class RollMessage : IRollMessage
     {
         public string RollMade { get; private set; }
         public string Rolls { get; private set; }
@@ -13,7 +13,7 @@ namespace DiceRoller.Library
         public string CritMessage { get; private set; }
         public Crit CritValue { get; private set; }
 
-        public RollMessage(DiceTray diceTray)
+        public void RollMessages(IDiceTray diceTray)
         {
             RollMade = $"{diceTray.DiceCount}d{diceTray.DiceType} +{diceTray.Bonus}";
             Rolls = $"{string.Join(", ", diceTray.Rolls)}";
@@ -22,11 +22,11 @@ namespace DiceRoller.Library
             CritValue = diceTray.Crit;
         }
 
-        private string CalculateResult(DiceTray diceTray)
+        private string CalculateResult(IDiceTray diceTray)
         {
             if (diceTray.VantageType == VantageType.NoVantage)
             {
-                    return $"{diceTray.Rolls.Sum() + diceTray.Bonus}";
+                return $"{diceTray.Rolls.Sum() + diceTray.Bonus}";
             }
             else if (diceTray.VantageType == VantageType.Advantage)
             {
@@ -42,7 +42,7 @@ namespace DiceRoller.Library
             }
         }
 
-        public string CritAsString(DiceTray diceTray)
+        public string CritAsString(IDiceTray diceTray)
         {
             if (diceTray.Crit == Crit.False)
             {
