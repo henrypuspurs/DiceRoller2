@@ -79,29 +79,35 @@
                 <div class="row">Total: @Model.RollResult.Result</div>
             </div>
         }
-        <!--next thing to get working-->
-        @if (Model.RollResult != null && Model.RollHistory.Count >= 1)
+
+        @if (Model.RollResult != null && Model.History.Count >= 2)
         {
-            for (int i = 0; i >= 3; i++)
+    <div class="col-md-3 alert alert-primary m-1">
+        @if (Model.History.Count <= 4)
+        {
+            for (int i = 0; i < Model.History.Count - 1; i++)
             {
-                var thisEntry = Model.RollHistory[i];
-            <div class="col-md-3 alert alert-primary m-1">
-                @if (thisEntry.CritValue != Crit.False)
-                {
-                    @if (thisEntry.CritValue != Crit.CriticalFail)
-                    {
-                        <div class="row alert alert-success">@thisEntry.CritMessage</div>
-                    }
-                    else
-                    {
-                        <div class="row alert alert-danger">@thisEntry.CritMessage</div>
-                    }
-                }
-                <div class="row">@thisEntry.RollMade</div>
-                <div class="row">The rolls were: @thisEntry.Rolls</div>
-                <div class="row">Total: @thisEntry.Result</div>
-            </div>
+                var thisEntry = Model.History[i];
+                <div class="alert alert-secondary">
+                    <div class="row">@thisEntry.RollMade</div>
+                    <div class="row">The rolls were: @thisEntry.Rolls</div>
+                    <div class="row">Total: @thisEntry.Result</div>
+                </div>
             }
+        }
+        else
+        {
+            for (int i = Model.History.Count - 5; i < Model.History.Count - 1; i++)
+            {
+                var thisEntry = Model.History[i];
+                <div class="alert alert-secondary">
+                    <div class="row">@thisEntry.RollMade</div>
+                    <div class="row">The rolls were: @thisEntry.Rolls</div>
+                    <div class="row">Total: @thisEntry.Result</div>
+                </div>
+            }
+        }
+    </div>
         }
     </div>
 </div>

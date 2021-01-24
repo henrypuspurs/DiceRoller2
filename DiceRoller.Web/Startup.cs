@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using DiceRoller.Library;
+using DiceRoller.Web.Models;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -25,8 +26,9 @@ namespace DiceRoller.Web
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllersWithViews();
-            services.AddScoped<IDiceTray, DiceTray>();
-            services.AddScoped<IRollMessage, RollMessage>();
+            services.AddTransient<IDiceTray, DiceTray>();
+            services.AddTransient<IRollMessage, RollMessage>();
+            services.AddSingleton<IRollHistory, RollHistory>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
